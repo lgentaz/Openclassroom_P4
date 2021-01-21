@@ -11,10 +11,14 @@ public class FareCalculatorService {
         }
 
         int inHour = ticket.getInTime().getHours();
+        System.out.println("inHour : " + inHour);
         int outHour = ticket.getOutTime().getHours();
+        System.out.println("outHour : " + outHour);
 
         //TODO: Some tests are failing here. Need to check if this logic is correct
+        //need to modify variable to set a datetime dna snot simply hours
         int duration = outHour - inHour;
+        System.out.println("duration : " + duration);
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
