@@ -10,15 +10,13 @@ public class FareCalculatorService {
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
 
-        int inHour = ticket.getInTime().getHours();
-        System.out.println("inHour : " + inHour);
-        int outHour = ticket.getOutTime().getHours();
-        System.out.println("outHour : " + outHour);
+        long inTime = ticket.getInTime().getTime() / (1000);
+        long outTime = ticket.getOutTime().getTime() / (1000);
 
         //TODO: Some tests are failing here. Need to check if this logic is correct
-        //need to modify variable to set a datetime dna snot simply hours
-        int duration = outHour - inHour;
-        System.out.println("duration : " + duration);
+        //Modified deprecated getHours and changed variable to float to account for minutes
+        float duration;
+        duration = (float) ((outTime - inTime)/3600.0);
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
