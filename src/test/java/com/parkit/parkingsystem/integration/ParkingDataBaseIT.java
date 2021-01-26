@@ -51,7 +51,8 @@ public class ParkingDataBaseIT {
     public void testParkingACar(){
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
-        //TODO: check that a ticket is actualy saved in DB and Parking table is updated with availability
+        //TODO: check that a ticket is actually saved in DB and Parking table is updated with availability
+    //    when().thenReturn();
     }
 
     @Test
@@ -60,6 +61,7 @@ public class ParkingDataBaseIT {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
         //TODO: check that the fare generated and out time are populated correctly in the database
+    //    when().thenReturn();
     }
 
 }

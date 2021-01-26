@@ -13,8 +13,6 @@ public class FareCalculatorService {
         long inTime = ticket.getInTime().getTime() / (1000);
         long outTime = ticket.getOutTime().getTime() / (1000);
 
-        //TODO: Some tests are failing here. Need to check if this logic is correct
-        //Modified deprecated getHours and changed variable to float to account for minutes
         float duration;
         duration = (float) ((outTime - inTime)/3600.0);
 
