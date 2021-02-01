@@ -19,6 +19,13 @@ public class TicketDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+    /**
+     * Saves in the database the information relative to a vehicle entering the parking
+     *
+     * @param ticket
+     *          the information relative to a parked vehicle
+     * @return a boolean informing whether the task was completed
+     */
     public boolean saveTicket(Ticket ticket){
         Connection con = null;
         try {
@@ -40,13 +47,20 @@ public class TicketDAO {
         }
     }
 
+    /**
+     * Accesses the information relative to a parked vehicle (ticket) from registration number
+     *
+     * @param vehicleRegNumber
+     *          the user's vehicle registration number
+     * @return ticket - the information relative to the parked vehicle
+     */
     public Ticket getTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;
         try {
             con = dataBaseConfig.getConnection();
             PreparedStatement ps = con.prepareStatement(DBConstants.GET_TICKET);
-            //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
+            //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME
             ps.setString(1,vehicleRegNumber);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -69,6 +83,13 @@ public class TicketDAO {
         }
     }
 
+    /**
+     * Updates the information relative to a parked vehicle (ticket) when leaving (outTime, Price)
+     *
+     * @param ticket
+     *          the information relative to the parked vehicle
+     * @return a boolean informing whether the task was completed
+     */
     public boolean updateTicket(Ticket ticket) {
         Connection con = null;
         try {

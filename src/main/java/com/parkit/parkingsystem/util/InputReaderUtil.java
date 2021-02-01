@@ -5,11 +5,19 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
+/**
+ * Reads the user's various inputs
+ */
 public class InputReaderUtil {
 
     private static Scanner scan = new Scanner(System.in);
     private static final Logger logger = LogManager.getLogger("InputReaderUtil");
 
+    /**
+     * Reads the value of the user's input (an integer) and returns it
+     *
+     * @return the user's input
+     */
     public int readSelection() {
         try {
             int input = Integer.parseInt(scan.nextLine());
@@ -21,6 +29,11 @@ public class InputReaderUtil {
         }
     }
 
+    /**
+     * Reads the registration number of the user's vehicle (String of character) entered and returns it
+     *
+     * @return the vehicle registration number
+     */
     public String readVehicleRegistrationNumber() throws Exception {
         try {
             String vehicleRegNumber= scan.nextLine();
