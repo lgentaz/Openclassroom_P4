@@ -19,6 +19,7 @@ public class TicketDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+
     /**
      * Saves in the database the information relative to a vehicle entering the parking
      *
@@ -106,5 +107,27 @@ public class TicketDAO {
             dataBaseConfig.closeConnection(con);
         }
         return false;
+    }
+
+    public boolean frequentUser(Ticket ticket) {
+        Connection con = null;
+        boolean reduce = false;
+        try {
+            con = dataBaseConfig.getConnection();
+            PreparedStatement ps = con.prepareStatement(DBConstants.NUMBER_OF_VISITS);
+            ps.setString(1,ticket.getVehicleRegNumber());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                int nBVisits = Integer.parseInt(rs.getString(1));
+                if (nBVisits > 1) {
+                    reduce =  true;
+                }
+            }
+        }catch (Exception ex){
+            logger.error("Error saving ticket info",ex);
+        }finally {
+            dataBaseConfig.closeConnection(con);
+        }
+        return reduce;
     }
 }

@@ -5,16 +5,13 @@ import com.parkit.parkingsystem.model.Ticket;
 
 public class FareCalculatorService {
 
-    // add frequent user variable (::before create/update request for previous ticket in TicketDAO)
-    private boolean frequentUser = false;
-
     /**
      * Calculates the parking fare when the vehicle leaves and saves it in DB
      *
      * @param ticket
      *          the information relative to the parked vehicle
      */
-    public void calculateFare(Ticket ticket){
+    public void calculateFare(Ticket ticket, boolean reduction){
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
@@ -24,8 +21,11 @@ public class FareCalculatorService {
 
         float duration;
         duration = (float) ((outTime - inTime)/3600.0);
-
-        if(frequentUser) duration *= 0.95;
+        System.out.println("full duration " + duration);
+        if (reduction) {
+            duration *= 0.95;
+            System.out.println("duration with reduction" + duration);
+        }
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
@@ -36,7 +36,8 @@ public class FareCalculatorService {
                 ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
                 break;
             }
-            default: throw new IllegalArgumentException("Unkown Parking Type");
+            default: throw new IllegalArgumentException("Unknown Parking Type");
         }
     }
+
 }
