@@ -21,11 +21,7 @@ public class FareCalculatorService {
 
         float duration;
         duration = (float) ((outTime - inTime)/3600.0);
-        System.out.println("full duration " + duration);
-        if (reduction) {
-            duration *= 0.95;
-            System.out.println("duration with reduction" + duration);
-        }
+        if (reduction) duration *= 0.95;
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
