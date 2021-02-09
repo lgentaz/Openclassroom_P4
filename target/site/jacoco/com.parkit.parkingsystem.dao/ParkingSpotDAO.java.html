@@ -11,10 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-<span class="nc" id="L14">public class ParkingSpotDAO {</span>
+<span class="fc" id="L14">public class ParkingSpotDAO {</span>
 <span class="fc" id="L15">    private static final Logger logger = LogManager.getLogger(&quot;ParkingSpotDAO&quot;);</span>
 
-<span class="nc" id="L17">    public DataBaseConfig dataBaseConfig = new DataBaseConfig();</span>
+<span class="fc" id="L17">    public DataBaseConfig dataBaseConfig = new DataBaseConfig();</span>
 
     /**
      * Retrieves and returns a parking spot number for the correct vehicle (if spots available)
@@ -25,8 +25,8 @@ import java.sql.ResultSet;
      *          the designation number of the next parking spot available
      */
     public int getNextAvailableSlot(ParkingType parkingType){
-<span class="nc" id="L28">        Connection con = null;</span>
-<span class="nc" id="L29">        int result=-1;</span>
+<span class="fc" id="L28">        Connection con = null;</span>
+<span class="fc" id="L29">        int result=-1;</span>
         try {
 <span class="nc" id="L31">            con = dataBaseConfig.getConnection();</span>
 <span class="nc" id="L32">            PreparedStatement ps = con.prepareStatement(DBConstants.GET_NEXT_PARKING_SPOT);</span>
@@ -37,12 +37,12 @@ import java.sql.ResultSet;
             }
 <span class="nc" id="L38">            dataBaseConfig.closeResultSet(rs);</span>
 <span class="nc" id="L39">            dataBaseConfig.closePreparedStatement(ps);</span>
-<span class="nc" id="L40">        }catch (Exception ex){</span>
-<span class="nc" id="L41">            logger.error(&quot;Error fetching next available slot&quot;,ex);</span>
+<span class="fc" id="L40">        }catch (Exception ex){</span>
+<span class="fc" id="L41">            logger.error(&quot;Error fetching next available slot&quot;,ex);</span>
         }finally {
-<span class="nc" id="L43">            dataBaseConfig.closeConnection(con);</span>
+<span class="fc" id="L43">            dataBaseConfig.closeConnection(con);</span>
         }
-<span class="nc" id="L45">        return result;</span>
+<span class="fc" id="L45">        return result;</span>
     }
 
     /**
