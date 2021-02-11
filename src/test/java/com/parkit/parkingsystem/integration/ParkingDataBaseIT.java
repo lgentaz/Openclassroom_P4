@@ -62,6 +62,7 @@ public class ParkingDataBaseIT {
         testParkingACar();
         parkingService.processExitingVehicle();
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
+
         Assertions.assertNotNull(ticket.getOutTime());
         Assertions.assertNotNull(ticket.getPrice());
         Assertions.assertEquals(0.0, ticket.getPrice());
