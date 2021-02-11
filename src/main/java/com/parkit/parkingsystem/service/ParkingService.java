@@ -67,7 +67,7 @@ public class ParkingService {
 
     /**
      * Accesses the database to get the id of next available parking spot
-     * @return the reference of a parking spot not yet assigned
+     * @return the reference of a parking spot not yet assigned or null if parking is full
      */
     public ParkingSpot getNextParkingNumberIfAvailable(){
         int parkingNumber;
