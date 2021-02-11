@@ -43,14 +43,13 @@ public class ParkingDataBaseIT {
 
     @AfterAll
     private static void tearDown(){
-        dataBasePrepareService.clearDataBaseEntries();
+//        dataBasePrepareService.clearDataBaseEntries();
     }
 
     @Test
     public void testParkingACar(){
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
-        //TODO: check that a ticket is actually saved in DB and Parking table is updated with availability
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
 
         Assertions.assertNotNull(ticket);
@@ -62,16 +61,11 @@ public class ParkingDataBaseIT {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         testParkingACar();
         parkingService.processExitingVehicle();
-
         //TODO: check that the fare generated and out time are populated correctly in the database
-
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
-        System.out.println("Price: " + ticket.getPrice());
-/*        System.out.println(ticket.getInTime().getTime());
-        System.out.println(ticket.getOutTime().getTime());
-        System.out.println(ticket.getPrice());
         Assertions.assertNotNull(ticket.getOutTime());
-        Assertions.assertNotNull(ticket.getPrice()); */
+        Assertions.assertNotNull(ticket.getPrice());
+        Assertions.assertEquals(0.0, ticket.getPrice());
     }
 
 }
