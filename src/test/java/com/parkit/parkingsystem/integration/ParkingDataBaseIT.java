@@ -12,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Calendar;
+
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,7 +28,7 @@ public class ParkingDataBaseIT {
     private static InputReaderUtil inputReaderUtil;
 
     @BeforeAll
-    private static void setUp() throws Exception{
+    private static void setUp(){
         parkingSpotDAO = new ParkingSpotDAO();
         parkingSpotDAO.dataBaseConfig = dataBaseTestConfig;
         ticketDAO = new TicketDAO();
@@ -64,8 +66,42 @@ public class ParkingDataBaseIT {
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
 
         Assertions.assertNotNull(ticket.getOutTime());
-        Assertions.assertNotNull(ticket.getPrice());
         Assertions.assertEquals(0.0, ticket.getPrice());
     }
 
+    @Test
+    public void testFrequentUserExitsParkingLot(){
+        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+        Ticket ticket = new Ticket();
+        String regNumber = "ABCDEF";
+        ticket.setParkingSpot(parkingService.getNextParkingNumberIfAvailable());
+        ticket.setVehicleRegNumber(regNumber);
+        ticket.setPrice(0);
+        Calendar before = Calendar.getInstance();
+        before.set(2021,01,13,12,
+                32);
+        ticket.setInTime(before.getTime());
+        ticket.setOutTime(before.getTime());
+        ticketDAO.saveTicket(ticket);
+
+        testParkingACar();
+        parkingService.processExitingVehicle();
+        Ticket secondTicket = ticketDAO.getTicket(regNumber);
+
+        Assertions.assertTrue(ticketDAO.frequentUser(secondTicket));
+
+    }
+
+    @Test
+    public void carAlreadyInSpotParkNewCarInNextSpot() throws Exception{
+        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+        testParkingACar();
+        Ticket ticket1 = ticketDAO.getTicket("ABCDEF");
+
+        when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("AZERTY");
+        parkingService.processIncomingVehicle();
+        Ticket ticket2 = ticketDAO.getTicket("AZERTY");
+
+        Assertions.assertNotEquals(ticket1.getParkingSpot(), ticket2.getParkingSpot());
+    }
 }
