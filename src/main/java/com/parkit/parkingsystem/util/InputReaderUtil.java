@@ -16,7 +16,7 @@ public class InputReaderUtil {
     /**
      * Reads the value of the user's input (an integer) and returns it
      *
-     * @return the user's input
+     * @return the user's input or -1 if the input is not valid (integer)
      */
     public int readSelection() {
         try {
@@ -33,6 +33,7 @@ public class InputReaderUtil {
      * Reads the registration number of the user's vehicle (String of character) entered and returns it
      *
      * @return the vehicle registration number
+     * @throws IllegalArgumentException if user's input is null value
      */
     public String readVehicleRegistrationNumber() throws Exception {
         try {

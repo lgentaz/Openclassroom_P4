@@ -36,7 +36,7 @@ public class ParkingService {
             if(parkingSpot !=null && parkingSpot.getId() > 0){
                 String vehicleRegNumber = getVehicleRegNumber();
                 parkingSpot.setAvailable(false);
-                parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false
+                parkingSpotDAO.updateParking(parkingSpot); //allot this parking space and mark it's availability as false
 
                 Date inTime = new Date();
                 Ticket ticket = new Ticket();
@@ -66,7 +66,7 @@ public class ParkingService {
 
     /**
      * Accesses the database to get the id of next available parking spot
-     * @return the reference of a parking spot not yet assigned or null if parking is full
+     * @return the reference of a parking spot not yet assigned, with value null if parking is full
      */
     public ParkingSpot getNextParkingNumberIfAvailable(){
         int parkingNumber;
@@ -90,6 +90,7 @@ public class ParkingService {
     /**
      * Asks the user to enter the vehicle's type
      * @return the vehicle's type
+     * @throws IllegalArgumentException if input does not correspond to one of the given cases
      */
     private ParkingType getVehicleType(){
         System.out.println("Please select vehicle type from menu");
