@@ -5,11 +5,6 @@ import com.parkit.parkingsystem.model.Ticket;
 
 public class FareCalculatorService {
 
-    private final int convertToSec = 1000;
-    private final double convertToHrs = 3600.0;
-    private final double halfHour = 0.5;
-    private final double discount = 0.95;
-
     /**
      * Calculates the parking fare when the vehicle leaves and saves it in DB
      *
@@ -21,12 +16,12 @@ public class FareCalculatorService {
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
 
-        long inTime = ticket.getInTime().getTime()/convertToSec;
-        long outTime = ticket.getOutTime().getTime()/convertToSec;
+        long inTime = ticket.getInTime().getTime() / (1000);
+        long outTime = ticket.getOutTime().getTime() / (1000);
 
-        double duration = (outTime - inTime)/convertToHrs;
-        if (duration < halfHour) duration = 0.0;
-        if (reduction) duration *= discount;
+        double duration = (outTime - inTime)/3600.0;
+        if (duration < 0.5) duration = 0.0;
+        if (reduction) duration *= 0.95;
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
