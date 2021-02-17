@@ -12,6 +12,8 @@ public class DataBaseConfig {
     private String user = "root";
     private String password = "rootroot";
 
+    //TODO create configFile for DB connection, call this here method getConnection() from Integration Tests
+
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
