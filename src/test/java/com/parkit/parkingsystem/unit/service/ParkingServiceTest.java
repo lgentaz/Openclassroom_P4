@@ -1,4 +1,4 @@
-package com.parkit.parkingsystem;
+package com.parkit.parkingsystem.unit.service;
 
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
@@ -127,7 +127,6 @@ public class ParkingServiceTest {
     @Test
     public void noAvailableSlotForIncomingVehicleTest(){
         //GIVEN
-        ParkingSpot parkingSpot;
         try {
             int spotId = -1;
             when(inputReaderUtil.readSelection()).thenReturn(2);
