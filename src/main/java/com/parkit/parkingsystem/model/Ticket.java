@@ -58,4 +58,12 @@ public class Ticket {
         this.outTime = outTime;
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "vehicleRegNumber='" + vehicleRegNumber + '\'' +
+                ", price=" + price +
+                ", outTime=" + outTime +
+                '}';
+    }
 }
