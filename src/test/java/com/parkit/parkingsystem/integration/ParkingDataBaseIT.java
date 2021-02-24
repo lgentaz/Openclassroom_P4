@@ -7,6 +7,8 @@ import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -23,6 +25,8 @@ public class ParkingDataBaseIT {
     private static ParkingSpotDAO parkingSpotDAO;
     private static TicketDAO ticketDAO;
     private static DataBasePrepareService dataBasePrepareService;
+
+    private static final Logger logger = LogManager.getLogger("ParkingDataBaseIT");
 
     @Mock
     private static InputReaderUtil inputReaderUtil;
@@ -64,6 +68,8 @@ public class ParkingDataBaseIT {
         testParkingACar();
         parkingService.processExitingVehicle();
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
+
+        logger.error("Test Parking Lot Exit: {}",ticket);
 
         Assertions.assertNotNull(ticket.getOutTime());
         Assertions.assertEquals(0.0, ticket.getPrice());
