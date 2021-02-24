@@ -41,7 +41,8 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="adopt-openj9-1.8" project-jdk-type="JavaSDK" />
   <component name="QAPlugAnalysisUIOptions">
     <option name="GROUP_BY_SEVERITY" value="true" />
-    <option name="SHOW_STRUCTURE" value="true" />
+    <option name="FILTER_RESOLVED_ITEMS" value="false" />
+    <option name="SHOW_SONAR_WAY" value="false" />
   </component>
   <component name="SuppressionsComponent">
     <option name="suppComments" value="[]" />
