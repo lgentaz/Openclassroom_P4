@@ -34,8 +34,6 @@ public class ParkingSpotTest {
         Assert.assertEquals(ParkingType.BIKE, parkingSpot.getParkingType());
     }
 
-    //TODO test the setters for ParkingSpot and test the equality with hashcode
-
     @Test
     public void areTwoParkingSpotsDifferent() {
         //GIVEN
@@ -53,7 +51,7 @@ public class ParkingSpotTest {
         //WHEN
         Boolean equality = parkingSpot.equals(otherSpot);
         //THEN
-//        Assert.assertTrue(equality);
+        Assert.assertTrue(equality);
         Assert.assertEquals(parkingSpot.hashCode(), otherSpot.hashCode());
     }
 }
