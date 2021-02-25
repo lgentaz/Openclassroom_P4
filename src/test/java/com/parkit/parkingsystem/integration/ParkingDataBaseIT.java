@@ -78,15 +78,12 @@ public class ParkingDataBaseIT {
     @Test
     public void testFrequentUserExitsParkingLot(){
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-        Ticket ticket = new Ticket();
         String regNumber = "ABCDEF";
-        ticket.setParkingSpot(parkingService.getNextParkingNumberIfAvailable());
-        ticket.setVehicleRegNumber(regNumber);
-        ticket.setPrice(0);
         Calendar before = Calendar.getInstance();
         before.set(2021,01,13,12,
                 32);
-        ticket.setInTime(before.getTime());
+        Ticket ticket = new Ticket(parkingService.getNextParkingNumberIfAvailable(), regNumber, before.getTime());
+        ticket.setPrice(0);
         ticket.setOutTime(before.getTime());
         ticketDAO.saveTicket(ticket);
 
