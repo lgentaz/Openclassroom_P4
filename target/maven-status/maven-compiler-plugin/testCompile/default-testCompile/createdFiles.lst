@@ -1,6 +1,0 @@
-com/parkit/parkingsystem/unit/model/ParkingSpotTest.class
-com/parkit/parkingsystem/unit/service/FareCalculatorServiceTest.class
-com/parkit/parkingsystem/integration/service/DataBasePrepareService.class
-com/parkit/parkingsystem/integration/ParkingDataBaseIT.class
-com/parkit/parkingsystem/unit/service/ParkingServiceTest.class
-com/parkit/parkingsystem/integration/config/DataBaseTestConfig.class
