@@ -13,7 +13,7 @@ public class Ticket {
     public Ticket(ParkingSpot parkingSpot, String vehicleRegNumber, Date inTime) {
         this.parkingSpot = parkingSpot;
         this.vehicleRegNumber = vehicleRegNumber;
-        this.inTime = inTime;
+        this.setInTime(inTime);
     }
 
     public int getId() {
