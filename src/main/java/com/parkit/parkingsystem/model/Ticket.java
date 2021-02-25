@@ -10,6 +10,12 @@ public class Ticket {
     private Date inTime;
     private Date outTime;
 
+    public Ticket(ParkingSpot parkingSpot, String vehicleRegNumber, Date inTime) {
+        this.parkingSpot = parkingSpot;
+        this.vehicleRegNumber = vehicleRegNumber;
+        this.inTime = inTime;
+    }
+
     public int getId() {
         return id;
     }
@@ -43,19 +49,23 @@ public class Ticket {
     }
 
     public Date getInTime() {
-        return inTime;
+        return new Date(inTime.getTime());
     }
 
     public void setInTime(Date inTime) {
-        this.inTime = inTime;
+        this.inTime = new Date(inTime.getTime());
     }
 
     public Date getOutTime() {
-        return outTime;
+        return new Date(outTime.getTime());
     }
 
     public void setOutTime(Date outTime) {
-        this.outTime = outTime;
+        if (outTime != null) {
+            this.outTime = new Date(outTime.getTime());
+        } else {
+            this.outTime = null;
+        }
     }
 
     @Override

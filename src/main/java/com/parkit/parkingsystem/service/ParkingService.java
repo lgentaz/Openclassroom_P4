@@ -39,13 +39,10 @@ public class ParkingService {
                 parkingSpotDAO.updateParking(parkingSpot); //allot this parking space and mark it's availability as false
 
                 Date inTime = new Date();
-                Ticket ticket = new Ticket();
-                ticket.setParkingSpot(parkingSpot);
-                ticket.setVehicleRegNumber(vehicleRegNumber);
+                Ticket ticket = new Ticket(parkingSpot,vehicleRegNumber,inTime);
                 ticket.setPrice(0);
-                ticket.setInTime(inTime);
-                ticket.setOutTime(null);
                 ticketDAO.saveTicket(ticket);
+//                ticket.setOutTime(null);
                 System.out.println("Generated Ticket and saved in DB");
                 System.out.println("Please park your vehicle in spot number:"+parkingSpot.getId());
                 System.out.println("Recorded in-time for vehicle number:"+vehicleRegNumber+" is:"+inTime);
