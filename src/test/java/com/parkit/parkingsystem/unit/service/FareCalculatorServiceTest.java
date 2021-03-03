@@ -17,8 +17,8 @@ public class FareCalculatorServiceTest {
 
     private static FareCalculatorService fareCalculatorService;
     private Ticket ticket;
-    private static long hrInMillis = 3600000;
-    private static long dayInMillis = 86400000;
+    private final static long millisecInHour = 3600000;
+    private final static long millisecInDay = 86400000;
 
     @BeforeAll
     private static void setUp() {
@@ -37,7 +37,7 @@ public class FareCalculatorServiceTest {
     @Test
     public void calculateFareCarFirstTimeUser() {
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-        ticket = ticketSetUp(hrInMillis, parkingSpot);
+        ticket = ticketSetUp(millisecInHour, parkingSpot);
         fareCalculatorService.calculateFare(ticket, false);
         assertEquals(ticket.getPrice(), Fare.CAR_RATE_PER_HOUR);
     }
@@ -45,7 +45,7 @@ public class FareCalculatorServiceTest {
     @Test
     public void calculateFareBikeFirstTimeUser() {
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
-        ticket = ticketSetUp(hrInMillis, parkingSpot);
+        ticket = ticketSetUp(millisecInHour, parkingSpot);
         fareCalculatorService.calculateFare(ticket, false);
         assertEquals(ticket.getPrice(), Fare.BIKE_RATE_PER_HOUR);
     }
@@ -53,7 +53,7 @@ public class FareCalculatorServiceTest {
     @Test
     public void calculateFareUnknownType() {
         ParkingSpot parkingSpot = new ParkingSpot(1, null, false);
-        ticket = ticketSetUp(hrInMillis, parkingSpot);
+        ticket = ticketSetUp(millisecInHour, parkingSpot);
 
         assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket, false));
     }
@@ -61,7 +61,7 @@ public class FareCalculatorServiceTest {
     @Test
     public void calculateFareBikeWithFutureInTime() {
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
-        ticket = ticketSetUp(-hrInMillis, parkingSpot);
+        ticket = ticketSetUp(-millisecInHour, parkingSpot);
 
         assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket, false));
     }
@@ -87,7 +87,7 @@ public class FareCalculatorServiceTest {
     @Test
     public void calculateFareCarWithMoreThanADayParkingTimeFirstTimeUser() {
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-        ticket = ticketSetUp(dayInMillis, parkingSpot);
+        ticket = ticketSetUp(millisecInDay, parkingSpot);
 
         fareCalculatorService.calculateFare(ticket, false);
         assertEquals((24 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());
@@ -105,7 +105,7 @@ public class FareCalculatorServiceTest {
     @Test
     public void calculateFareCarWithMoreThanADayParkingFrequentUser() {
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-        ticket = ticketSetUp(dayInMillis, parkingSpot);
+        ticket = ticketSetUp(millisecInDay, parkingSpot);
 
         fareCalculatorService.calculateFare(ticket, true);
         assertEquals((24 * 0.95 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());

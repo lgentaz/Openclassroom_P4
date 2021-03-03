@@ -7,7 +7,6 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.*;
 public class ParkingServiceTest {
 
     private static ParkingService parkingService;
-    private static long hrInMillis = 3600000;
+    private final static long millisecInHour = 3600000;
 
     @Mock
     private static InputReaderUtil inputReaderUtil;
@@ -31,15 +30,13 @@ public class ParkingServiceTest {
     private static ParkingSpotDAO parkingSpotDAO;
     @Mock
     private static TicketDAO ticketDAO;
-    @Mock
-    private static Logger logger;
 
     @Test
     public void processExitingCarTest(){
         //GIVEN
         try {
             ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
-            Date inTime = new Date(System.currentTimeMillis() - hrInMillis);
+            Date inTime = new Date(System.currentTimeMillis() - millisecInHour);
             Ticket ticket = new Ticket(parkingSpot,"ABCDEF", inTime);
             when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
             when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
@@ -61,7 +58,7 @@ public class ParkingServiceTest {
         //GIVEN
         try {
             ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
-            Date inTime = new Date(System.currentTimeMillis() - hrInMillis);
+            Date inTime = new Date(System.currentTimeMillis() - millisecInHour);
             Ticket ticket = new Ticket(parkingSpot, "ABCDEF", inTime);
             when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
             when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
