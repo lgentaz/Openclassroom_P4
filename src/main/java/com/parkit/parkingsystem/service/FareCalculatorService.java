@@ -1,14 +1,17 @@
 package com.parkit.parkingsystem.service;
 
+import com.parkit.parkingsystem.config.GetProperties;
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
 
 public class FareCalculatorService {
 
+    private static final GetProperties fareConfig = new GetProperties();
+
     private static int convertToSec = 1000;
     private static double convertToHrs = 3600.0;
     private static double halfHour = 0.5;
-    private static double discount = 0.95;
+    private static double discount =  Double.parseDouble(fareConfig.getProp("discount"));
 
     /**
      * Calculates the parking fare when the vehicle leaves and saves it in DB
