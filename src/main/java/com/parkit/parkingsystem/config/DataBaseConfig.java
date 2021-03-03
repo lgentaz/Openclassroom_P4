@@ -8,9 +8,11 @@ import java.sql.*;
 public class DataBaseConfig {
 
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
-    private String url = "jdbc:mysql://localhost:3306/prod";
-    private String user = "root";
-    private String password = "rootroot";
+    private static final GetProperties dbconfig = new GetProperties();
+
+    private final String url = dbconfig.getProp("prodURL");
+    private final String user = dbconfig.getProp("user");
+    private final String password = dbconfig.getProp("password");
 
     //TODO create configFile for DB connection, call this here method getConnection() from Integration Tests
 
