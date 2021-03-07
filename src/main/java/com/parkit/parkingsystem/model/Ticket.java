@@ -11,8 +11,8 @@ public class Ticket {
     private Date outTime;
 
     public Ticket(ParkingSpot parkingSpot, String vehicleRegNumber, Date inTime) {
-        this.parkingSpot = parkingSpot;
-        this.vehicleRegNumber = vehicleRegNumber;
+        this.setParkingSpot(parkingSpot);
+        this.setVehicleRegNumber(vehicleRegNumber);
         this.setInTime(inTime);
     }
 
