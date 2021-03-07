@@ -15,12 +15,10 @@ public class GetProperties {
         String propFile = "config.properties";
 
         inputStream = getClass().getClassLoader().getResourceAsStream(propFile);
-        if (inputStream != null) {
-            try {
-                prop.load(inputStream);
-            } catch (IOException ioe) {
-                logger.error("Property file '" + propFile + "' not found in the classpath");
-            }
+        try {
+            prop.load(inputStream);
+        } catch (IOException ioe) {
+            logger.error("Property file '" + propFile + "' not found in the classpath");
         }
         return prop.getProperty(key);
 
