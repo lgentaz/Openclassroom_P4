@@ -108,6 +108,13 @@ public class TicketDAO {
         return false;
     }
 
+    /**
+     * Identifies if the vehicle has already visited the parking before
+     *
+     * @param ticket
+     *          the information relative to the parked vehicle
+     * @return a boolean informing whether the frequent user reduction is applicable
+     */
     public boolean frequentUser(Ticket ticket) {
         Connection con = null;
         boolean reduce = false;
