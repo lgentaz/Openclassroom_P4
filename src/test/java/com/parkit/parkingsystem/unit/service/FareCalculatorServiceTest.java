@@ -51,7 +51,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareUnknownType() {
+    public void calculateFareNoType() {
         ParkingSpot parkingSpot = new ParkingSpot(1, null, false);
         ticket = ticketSetUp(millisecInHour, parkingSpot);
 
@@ -64,6 +64,16 @@ public class FareCalculatorServiceTest {
         ticket = ticketSetUp(-millisecInHour, parkingSpot);
 
         assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket, false));
+    }
+
+    @Test
+    public void calculateFareBikeWithNoOutTime() {
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+        Date inTime = new Date();
+        inTime.setTime(System.currentTimeMillis());
+        ticket = new Ticket(parkingSpot, "ABCDEF", inTime);
+
+        assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket, false));
     }
 
     @Test
