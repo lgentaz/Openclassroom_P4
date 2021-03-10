@@ -8,10 +8,10 @@ public class FareCalculatorService {
 
     private static final GetProperties fareConfig = new GetProperties();
 
-    private static int convertToSec = 1000;
-    private static double convertToHrs = 3600.0;
-    private static double halfHour = 0.5;
-    private static double discount =  Double.parseDouble(fareConfig.getProp("discount"));
+    private static final int convertToSec = 1000;
+    private static final double convertToHrs = 3600.0;
+    private static final double halfHour = 0.5;
+    private static final double discount =  Double.parseDouble(fareConfig.getProp("discount"));
 
     /**
      * Calculates the parking fare when the vehicle leaves and saves it in DB
@@ -20,8 +20,10 @@ public class FareCalculatorService {
      *          the information relative to the parked vehicle
      */
     public void calculateFare(Ticket ticket, boolean reduction){
-        if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
-            throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
+        if( (ticket.getOutTime().before(ticket.getInTime())) ){
+            throw new IllegalArgumentException("Out time provided is incorrect:"+ ticket.getOutTime().toString());
+        } else if ((ticket.getOutTime() == null)) {
+            throw new NullPointerException("No out time provided.");
         }
 
         long inTime = ticket.getInTime().getTime()/convertToSec;
@@ -40,7 +42,6 @@ public class FareCalculatorService {
                 ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
                 break;
             }
-            default: throw new IllegalArgumentException("Unknown Parking Type");
         }
     }
 
