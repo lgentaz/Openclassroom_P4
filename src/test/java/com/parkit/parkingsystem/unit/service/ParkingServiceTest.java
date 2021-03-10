@@ -131,7 +131,6 @@ public class ParkingServiceTest {
 
         parkingService.processIncomingVehicle();
         verify(parkingSpotDAO, Mockito.times(0)).updateParking(any(ParkingSpot.class));
-
     }
 
     @Test
