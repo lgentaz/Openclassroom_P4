@@ -54,4 +54,11 @@ public class ParkingSpotTest {
         Assert.assertTrue(equality);
         Assert.assertEquals(parkingSpot.hashCode(), otherSpot.hashCode());
     }
+
+    @Test
+    public void isParkingAvailable() {
+        Boolean availability = parkingSpot.isAvailable();
+        //THEN
+        Assert.assertTrue(availability);
+    }
 }
