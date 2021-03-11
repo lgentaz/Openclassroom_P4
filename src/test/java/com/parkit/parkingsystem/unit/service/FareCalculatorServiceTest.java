@@ -69,9 +69,9 @@ public class FareCalculatorServiceTest {
     @Test
     public void calculateFareBikeWithNoOutTime() {
         ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
-        Date inTime = new Date();
-        inTime.setTime(System.currentTimeMillis());
-        ticket = new Ticket(parkingSpot, "ABCDEF", inTime);
+        ticket = ticketSetUp(millisecInHour, parkingSpot);
+        Date outTime = null;
+        ticket.setOutTime(outTime);
 
         assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket, false));
     }

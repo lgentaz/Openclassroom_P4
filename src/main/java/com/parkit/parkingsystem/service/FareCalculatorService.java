@@ -20,11 +20,9 @@ public class FareCalculatorService {
      *          the information relative to the parked vehicle
      */
     public void calculateFare(Ticket ticket, boolean reduction){
-        if( (ticket.getOutTime().before(ticket.getInTime())) ){
-            throw new IllegalArgumentException("Out time provided is incorrect:"+ ticket.getOutTime().toString());
-        } else if ((ticket.getOutTime() == null)) {
-            throw new NullPointerException("No out time provided.");
-        }
+        if(ticket.getOutTime().before(ticket.getInTime()))
+            throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
+        if (ticket.getOutTime() == null) throw new NullPointerException("No out time provided.");
 
         long inTime = ticket.getInTime().getTime()/convertToSec;
         long outTime = ticket.getOutTime().getTime()/convertToSec;
