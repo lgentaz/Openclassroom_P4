@@ -1,0 +1,14 @@
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/constants/Fare.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/dao/ParkingSpotDAO.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/service/FareCalculatorService.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/model/ParkingSpot.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/dao/TicketDAO.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/config/GetProperties.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/constants/DBConstants.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/App.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/util/InputReaderUtil.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/constants/ParkingType.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/service/ParkingService.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/service/InteractiveShell.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/model/Ticket.java
+/Users/luloh/Desktop/Code/Openclassrooms/Java/Projet4/parkingsystem/src/main/java/com/parkit/parkingsystem/config/DataBaseConfig.java
