@@ -8,19 +8,27 @@ import java.util.*;
 <span class="fc" id="L8">public class GetProperties {</span>
 <span class="fc" id="L9">    private static final Logger logger = LogManager.getLogger(&quot;GetProperties&quot;);</span>
 
+    /**
+     * Retrieves and returns the property value stored in config.properties
+     *
+     * @param key
+     *          string of character corresponding to the property type
+     * @return value
+     *          string of character corresponding to the precific value associated to the key in config.properties file
+     */
 
     public String getProp(String key) {
-<span class="fc" id="L13">        Properties prop = new Properties();</span>
-<span class="fc" id="L14">        String propFile = &quot;config.properties&quot;;</span>
+<span class="fc" id="L21">        Properties prop = new Properties();</span>
+<span class="fc" id="L22">        String propFile = &quot;config.properties&quot;;</span>
 
-<span class="fc" id="L16">        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFile);</span>
+<span class="fc" id="L24">        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFile);</span>
         try {
-<span class="fc" id="L18">            prop.load(inputStream);</span>
-<span class="nc" id="L19">        } catch (IOException ioe) {</span>
-<span class="nc" id="L20">            logger.error(&quot;Property file '&quot; + propFile + &quot;' not found in the classpath&quot;);</span>
-<span class="fc" id="L21">        }</span>
-<span class="fc" id="L22">        return prop.getProperty(key);</span>
-
+<span class="fc" id="L26">            prop.load(inputStream);</span>
+<span class="nc" id="L27">        } catch (IOException ioe) {</span>
+<span class="nc" id="L28">            logger.error(&quot;Property file '&quot; + propFile + &quot;' not found in the classpath&quot;);</span>
+<span class="fc" id="L29">        }</span>
+<span class="fc" id="L30">        String value = prop.getProperty(key);</span>
+<span class="fc" id="L31">        return value;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
