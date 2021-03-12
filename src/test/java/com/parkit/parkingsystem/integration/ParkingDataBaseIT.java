@@ -75,8 +75,6 @@ public class ParkingDataBaseIT {
         parkingService.processExitingVehicle();
         Ticket ticket = ticketDAO.getTicket("ABCDEF");
 
-        logger.error("Test Parking Lot Exit: {}",ticket);
-
         Assertions.assertNotNull(ticket.getOutTime());
         Assertions.assertEquals(0.0, ticket.getPrice());
     }
