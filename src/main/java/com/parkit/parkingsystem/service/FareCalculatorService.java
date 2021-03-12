@@ -18,6 +18,8 @@ public class FareCalculatorService {
      *
      * @param ticket
      *          the information relative to the parked vehicle
+     * @param reduction
+     *          boolean stating if vehicle is eligible for discount
      */
     public void calculateFare(Ticket ticket, boolean reduction){
         if(ticket.getOutTime().before(ticket.getInTime()))
