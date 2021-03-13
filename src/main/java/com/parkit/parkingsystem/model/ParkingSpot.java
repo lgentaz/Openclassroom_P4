@@ -17,15 +17,13 @@ public class ParkingSpot {
         return number;
     }
 
-    public void setId(int number) {
-        this.number = number;
-    }
+    public void setId(int number) { this.number = number; }
 
     public ParkingType getParkingType() {
         return parkingType;
     }
 
-    public void setParkingType(ParkingType parkingType) {
+     public void setParkingType(ParkingType parkingType) {
         this.parkingType = parkingType;
     }
 

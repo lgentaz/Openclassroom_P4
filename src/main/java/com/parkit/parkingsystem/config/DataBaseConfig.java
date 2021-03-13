@@ -8,12 +8,16 @@ import java.sql.*;
 public class DataBaseConfig {
 
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
+    private static final GetProperties dbconfig = new GetProperties();
+
+    private final String url = dbconfig.getProp("prodURL");
+    private final String user = dbconfig.getProp("user");
+    private final String password = dbconfig.getProp("password");
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/prod","root","rootroot");
+        return DriverManager.getConnection(url,user,password);
     }
 
     public void closeConnection(Connection con){

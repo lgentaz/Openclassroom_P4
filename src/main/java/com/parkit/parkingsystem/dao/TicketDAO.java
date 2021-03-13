@@ -19,44 +19,57 @@ public class TicketDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+
+    /**
+     * Saves in the database the information relative to a vehicle entering the parking
+     *
+     * @param ticket
+     *          the information relative to a parked vehicle
+     * @return a boolean informing whether the task was completed
+     */
     public boolean saveTicket(Ticket ticket){
         Connection con = null;
+        boolean isSaved = false;
         try {
             con = dataBaseConfig.getConnection();
             PreparedStatement ps = con.prepareStatement(DBConstants.SAVE_TICKET);
             //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
-            //ps.setInt(1,ticket.getId());
             ps.setInt(1,ticket.getParkingSpot().getId());
             ps.setString(2, ticket.getVehicleRegNumber());
             ps.setDouble(3, ticket.getPrice());
             ps.setTimestamp(4, new Timestamp(ticket.getInTime().getTime()));
-            ps.setTimestamp(5, (ticket.getOutTime() == null)?null: (new Timestamp(ticket.getOutTime().getTime())) );
-            return ps.execute();
+            ps.execute();
+            dataBaseConfig.closePreparedStatement(ps);
+            isSaved = true;
         }catch (Exception ex){
             logger.error("Error fetching next available slot",ex);
         }finally {
             dataBaseConfig.closeConnection(con);
-            return false;
         }
+        return isSaved;
     }
 
+    /**
+     * Accesses the information relative to a parked vehicle (ticket) from registration number
+     *
+     * @param vehicleRegNumber
+     *          the user's vehicle registration number
+     * @return ticket - the information relative to the parked vehicle
+     */
     public Ticket getTicket(String vehicleRegNumber) {
         Connection con = null;
         Ticket ticket = null;
         try {
             con = dataBaseConfig.getConnection();
             PreparedStatement ps = con.prepareStatement(DBConstants.GET_TICKET);
-            //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
+            //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME
             ps.setString(1,vehicleRegNumber);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                ticket = new Ticket();
                 ParkingSpot parkingSpot = new ParkingSpot(rs.getInt(1), ParkingType.valueOf(rs.getString(6)),false);
-                ticket.setParkingSpot(parkingSpot);
+                ticket = new Ticket(parkingSpot,vehicleRegNumber, rs.getTimestamp(4));
                 ticket.setId(rs.getInt(2));
-                ticket.setVehicleRegNumber(vehicleRegNumber);
                 ticket.setPrice(rs.getDouble(3));
-                ticket.setInTime(rs.getTimestamp(4));
                 ticket.setOutTime(rs.getTimestamp(5));
             }
             dataBaseConfig.closeResultSet(rs);
@@ -65,10 +78,17 @@ public class TicketDAO {
             logger.error("Error fetching next available slot",ex);
         }finally {
             dataBaseConfig.closeConnection(con);
-            return ticket;
         }
+        return ticket;
     }
 
+    /**
+     * Updates the information relative to a parked vehicle (ticket) when leaving (outTime, Price)
+     *
+     * @param ticket
+     *          the information relative to the parked vehicle
+     * @return a boolean informing whether the task was completed
+     */
     public boolean updateTicket(Ticket ticket) {
         Connection con = null;
         try {
@@ -78,6 +98,7 @@ public class TicketDAO {
             ps.setTimestamp(2, new Timestamp(ticket.getOutTime().getTime()));
             ps.setInt(3,ticket.getId());
             ps.execute();
+            dataBaseConfig.closePreparedStatement(ps);
             return true;
         }catch (Exception ex){
             logger.error("Error saving ticket info",ex);
@@ -85,5 +106,36 @@ public class TicketDAO {
             dataBaseConfig.closeConnection(con);
         }
         return false;
+    }
+
+    /**
+     * Identifies if the vehicle has already visited the parking before
+     *
+     * @param ticket
+     *          the information relative to the parked vehicle
+     * @return a boolean informing whether the frequent user reduction is applicable
+     */
+    public boolean frequentUser(Ticket ticket) {
+        Connection con = null;
+        boolean reduce = false;
+        try {
+            con = dataBaseConfig.getConnection();
+            PreparedStatement ps = con.prepareStatement(DBConstants.NUMBER_OF_VISITS);
+            ps.setString(1,ticket.getVehicleRegNumber());
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                int nBVisits = Integer.parseInt(rs.getString(1));
+                if (nBVisits > 1) {
+                    reduce =  true;
+                }
+            }
+            dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
+        }catch (Exception ex){
+            logger.error("Error saving ticket info",ex);
+        }finally {
+            dataBaseConfig.closeConnection(con);
+        }
+        return reduce;
     }
 }

@@ -16,6 +16,14 @@ public class ParkingSpotDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+    /**
+     * Retrieves and returns a parking spot number for the correct vehicle (if spots available)
+     *
+     * @param parkingType
+     *          either bike or car
+     * @return result
+     *          the designation number of the next parking spot available, returns -1 if unable to satisfy query
+     */
     public int getNextAvailableSlot(ParkingType parkingType){
         Connection con = null;
         int result=-1;
@@ -25,7 +33,7 @@ public class ParkingSpotDAO {
             ps.setString(1, parkingType.toString());
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                result = rs.getInt(1);;
+                result = rs.getInt(1);
             }
             dataBaseConfig.closeResultSet(rs);
             dataBaseConfig.closePreparedStatement(ps);
@@ -37,8 +45,14 @@ public class ParkingSpotDAO {
         return result;
     }
 
+    /**
+     * Updates the availability for the selected parking spot
+     *
+     * @param parkingSpot
+     *          the parking spot assigned
+     * @return a boolean value attesting if the update was successful or not
+     */
     public boolean updateParking(ParkingSpot parkingSpot){
-        //update the availability fo that parking slot
         Connection con = null;
         try {
             con = dataBaseConfig.getConnection();
